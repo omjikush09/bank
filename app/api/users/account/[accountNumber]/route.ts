@@ -12,7 +12,7 @@ export async function GET(
     const {userId,orgRole}=await auth();
     const user = await currentUser();
     
-    if (!userId) {
+    if (!userId ) {
       return NextResponse.json(
         { message: "Unauthorized" },
         { status: 401 }
@@ -20,7 +20,7 @@ export async function GET(
     }
     
     // Check if user is admin
-    const userMetadata = user.privateMetadata as { role?: string };
+    const userMetadata = user?.publicMetadata as { role?: string };
     const isAdmin = userMetadata?.role === "admin";
     
     if (!isAdmin) {

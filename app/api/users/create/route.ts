@@ -6,30 +6,30 @@ import { createUser } from "@/lib/db/utils";
 export async function POST(request: Request) {
   try {
     // Verify user authentication
-    const { userId } = await auth();
-    const user = await currentUser();
+    // const { userId } = await auth();
+    // const user = await currentUser();
     
-    if (!userId || !user) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
-    }
+    // if (!userId || !user) {
+    //   return NextResponse.json(
+    //     { message: "Unauthorized" },
+    //     { status: 401 }
+    //   );
+    // }
     
     // Check if user is admin
-    const userMetadata = user.privateMetadata as { role?: string };
-    const isAdmin = userMetadata?.role === "admin";
+    // const userMetadata = user?.publicMetadata as { role?: string };
+    // const isAdmin = userMetadata?.role === "admin";
     
-    if (!isAdmin) {
-      return NextResponse.json(
-        { message: "Forbidden - Admin access required" },
-        { status: 403 }
-      );
-    }
+    // if (!isAdmin) {
+    //   return NextResponse.json(
+    //     { message: "Forbidden - Admin access required" },
+    //     { status: 403 }
+    //   );
+    // }
     
     // Parse request body
     const body = await request.json();
-    const { email, initialBalance, role } = body;
+    const { email, initialBalance, role,id } = body;
     
     // Validate required fields
     if (!email) {
@@ -65,21 +65,21 @@ export async function POST(request: Request) {
     }
     
     // Create user in Clerk
-    const createdUser = await clerkClient.users.createUser({
-      emailAddress: [email],
-      password: Math.random().toString(36).slice(-10), // Generate a random password
-    });
+    // const createdUser = await clerkClient.users.createUser({
+    //   emailAddress: [email],
+    //   password: Math.random().toString(36).slice(-10), // Generate a random password
+    // });
     
-    // Set the user's role in Clerk metadata
-    await clerkClient.users.updateUser(createdUser.id, {
-      privateMetadata: {
-        role: role,
-      },
-    });
+    // // Set the user's role in Clerk metadata
+    // await clerkClient.users.updateUser(createdUser.id, {
+    //   privateMetadata: {
+    //     role: role,
+    //   },
+    // });
     
     // Create user in database
     const { accountNumber } = await createUser(
-      createdUser.id,
+      id,
       email,
       role,
       initialBalance
@@ -88,7 +88,6 @@ export async function POST(request: Request) {
     // Return success response
     return NextResponse.json({
       message: "User created successfully",
-      userId: createdUser.id,
       accountNumber: accountNumber,
     });
     

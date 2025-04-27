@@ -1,6 +1,6 @@
 
 import { v4 as uuidv4 } from "uuid";
-import { eq } from "drizzle-orm";
+import {eq} from "drizzle-orm"
 
 import { db } from "./index";
 import { users, transactions } from "./schema";
@@ -51,7 +51,7 @@ export async function getUserById(id: string) {
     .from(users)
     .where(eq(users.id, id))
     .limit(1);
-  
+  console.log(result)
   return result[0] || null;
 }
 

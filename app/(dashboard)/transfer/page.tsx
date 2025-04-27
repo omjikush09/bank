@@ -147,7 +147,7 @@ export default function TransferPage() {
             Transfer Funds
           </CardTitle>
           <CardDescription>
-            Enter the recipient's account number and the amount to transfer
+            Enter the recipient&apos;s account number and the amount to transfer
           </CardDescription>
         </CardHeader>
         <CardContent>

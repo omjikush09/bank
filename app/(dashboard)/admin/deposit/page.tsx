@@ -141,7 +141,7 @@ export default function DepositPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Deposit Funds</h1>
         <p className="text-muted-foreground">
-          Add money to a user's account
+          Add money to a user&apos;s account
         </p>
       </div>
       
@@ -152,7 +152,7 @@ export default function DepositPage() {
             Deposit Funds
           </CardTitle>
           <CardDescription>
-            Enter the user's account number and the amount to deposit
+            Enter the user&apos;s account number and the amount to deposit
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -225,7 +225,7 @@ export default function DepositPage() {
         </CardContent>
         <CardFooter className="border-t px-6 py-4 bg-muted/50">
           <p className="text-sm text-muted-foreground">
-            Deposits are processed immediately and will be available in the user's account.
+            Deposits are processed immediately and will be available in the user&apos;s account.
           </p>
         </CardFooter>
       </Card>

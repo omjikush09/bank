@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 import { getUserById } from "@/lib/db/utils";
@@ -6,7 +6,7 @@ import { getUserById } from "@/lib/db/utils";
 export async function GET() {
   try {
     // Verify user authentication
-    const { userId } = auth();
+    const { userId } = await auth();
     
     if (!userId) {
       return NextResponse.json(

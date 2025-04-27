@@ -12,13 +12,14 @@ import { getUserById, getTransactionsByAccount } from "@/lib/db/utils";
 export default async function DashboardPage() {
   const { userId } =await auth();
   const user = await currentUser();
-  
+  console.log(userId);
+  console.log(user);
   if (!userId || !user) {
     return <div>Loading...</div>;
   }
   
   const dbUser = await getUserById(userId);
-  
+  console.log(dbUser);
   if (!dbUser) {
     return (
       <div className="flex flex-col items-center justify-center h-full space-y-4">

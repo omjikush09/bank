@@ -35,7 +35,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [open, setOpen] = useState(false);
   
   // Get user role from metadata
-  const userMetadata = user?.privateMetadata as { role?: string };
+  const userMetadata = user?.publicMetadata as { role?: string };
   const isAdmin = userMetadata?.role === "admin";
   
   const userRoutes = [
@@ -66,11 +66,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       icon: DollarSign,
       href: "/admin/deposit",
       label: "Deposit Funds",
-    },
-    {
-      icon: PlusCircle,
-      href: "/admin/create-user",
-      label: "Create User",
     },
   ];
   

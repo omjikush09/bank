@@ -1,4 +1,4 @@
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 import { getUserByAccountNumber, depositToAccount } from "@/lib/db/utils";
@@ -6,7 +6,7 @@ import { getUserByAccountNumber, depositToAccount } from "@/lib/db/utils";
 export async function POST(request: Request) {
   try {
     // Verify user authentication
-    const { userId } = auth();
+    const { userId } = await auth();
     const user = await currentUser();
     
     if (!userId || !user) {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     }
     
     // Check if user is admin
-    const userMetadata = user.privateMetadata as { role?: string };
+    const userMetadata = user?.publicMetadata as { role?: string };
     const isAdmin = userMetadata?.role === "admin";
     
     if (!isAdmin) {

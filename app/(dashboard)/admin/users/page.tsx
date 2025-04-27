@@ -1,4 +1,4 @@
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { Plus, User } from "lucide-react";
 
@@ -23,7 +23,7 @@ import { formatCurrency } from "@/lib/utils";
 import { getAllUsers } from "@/lib/db/utils";
 
 export default async function UsersPage() {
-  const { userId } = auth();
+  const { userId } = await auth();
   const user = await currentUser();
   
   if (!userId || !user) {
@@ -31,7 +31,7 @@ export default async function UsersPage() {
   }
   
   // Check if user is admin
-  const userMetadata = user.privateMetadata as { role?: string };
+  const userMetadata = user?.publicMetadata as { role?: string };
   const isAdmin = userMetadata?.role === "admin";
   
   if (!isAdmin) {
@@ -56,12 +56,7 @@ export default async function UsersPage() {
             View and manage all users in the system
           </p>
         </div>
-        <Button asChild>
-          <Link href="/admin/create-user" className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            Create User
-          </Link>
-        </Button>
+        
       </div>
       
       <Card>

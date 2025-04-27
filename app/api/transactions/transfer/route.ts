@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 import { getUserById, getUserByAccountNumber, transferBetweenAccounts } from "@/lib/db/utils";
@@ -6,8 +6,8 @@ import { getUserById, getUserByAccountNumber, transferBetweenAccounts } from "@/
 export async function POST(request: Request) {
   try {
     // Verify user authentication
-    const { userId } = auth();
-    
+    const { userId } = await auth();
+     
     if (!userId) {
       return NextResponse.json(
         { message: "Unauthorized" },

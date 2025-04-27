@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Separator } from "@/components/ui/separator";
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 import {
@@ -20,7 +20,7 @@ import { getUserById, getTransactionsByAccount } from "@/lib/db/utils";
 import { formatCurrency, formatDate, getTransactionLabel } from "@/lib/utils";
 
 export default async function TransactionsPage() {
-  const { userId } = auth();
+  const { userId } = await auth();
   
   if (!userId) {
     return <div>Loading...</div>;
