@@ -29,6 +29,7 @@ export async function POST(request: Request) {
     
     // Parse request body
     const body = await request.json() as UserJSON;
+    console.log(body);
     const { email_addresses,  public_metadata,id } = body;
     const email=email_addresses[0].email_address
     const role=public_metadata?.role
