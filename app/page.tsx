@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Shield, RefreshCw, DollarSign } from "lucide-react";
-import {SignIn,SignInButton,SignUp,SignUpButton,SignedIn,SignedOut,UserButton} from "@clerk/nextjs"
 export default function Home() {
   return (
 		<main className="flex min-h-screen flex-col">
@@ -9,7 +8,7 @@ export default function Home() {
 				<div className="container flex h-16 items-center justify-between">
 					<div className="flex items-center gap-2 font-bold text-xl">
 						<Shield className="h-6 w-6 text-primary" />
-						<span>SecureBank</span>
+						<span>Prayagraj National Bank</span>
 					</div>
 					<div className="flex items-center gap-4">
 						<Button variant="ghost" asChild>
