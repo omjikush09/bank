@@ -1,4 +1,4 @@
-import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
+import { auth, clerkClient, currentUser ,UserJSON,UserWebhookEvent } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 import { createUser } from "@/lib/db/utils";
@@ -28,8 +28,10 @@ export async function POST(request: Request) {
     // }
     
     // Parse request body
-    const body = await request.json();
-    const { email, initialBalance, role,id } = body;
+    const body = await request.json() as UserJSON;
+    const { email_addresses,  public_metadata,id } = body;
+    const email=email_addresses[0].email_address
+    const role=public_metadata?.role
     
     // Validate required fields
     if (!email) {
@@ -57,12 +59,6 @@ export async function POST(request: Request) {
     }
     
     // Validate initial balance
-    if (initialBalance < 0) {
-      return NextResponse.json(
-        { message: "Initial balance cannot be negative" },
-        { status: 400 }
-      );
-    }
     
     // Create user in Clerk
     // const createdUser = await clerkClient.users.createUser({
@@ -81,8 +77,7 @@ export async function POST(request: Request) {
     const { accountNumber } = await createUser(
       id,
       email,
-      role,
-      initialBalance
+      role
     );
     
     // Return success response
